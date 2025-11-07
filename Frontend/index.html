@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <form id="form1" action="">
+      <input type="text" id="cityInput" />
+      <!--<button id="submitBtn">Submit</button>!-->
+      <input type="submit" />
+    </form>
+
+    <div id="resultDiv"></div>
+
+    <script>
+      //submitBtn.addEventListener("click", async (event) => {
+      //console.log(111111);
+      //fetch(`http://localhost:3000/weather`)
+      //.then((resp) => resp.text())
+      //.then((respText) => {
+      //console.log(respText);
+      //});
+      //});
+      form1.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const resp = await fetch(
+          `http://localhost:3000/weather?cityName=${cityInput.value}`
+        );
+        const data = await resp.json();
+        console.log(data);
+        const iconCode = data.weather[0].icon;
+        const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+        resultDiv.innerHTML = `
+        <h3>${data.name}</h3>
+        <p> ${data.weather[0].description}</p>
+        <p> ${data.main.temp}°C</p>
+        <img src="${iconUrl}" alt="Weather icon" />
+      `;
+      });
+    </script>
+  </body>
+</html>
