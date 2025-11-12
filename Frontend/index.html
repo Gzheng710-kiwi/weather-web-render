@@ -27,7 +27,7 @@
       form1.addEventListener("submit", async (event) => {
         event.preventDefault();
         const resp = await fetch(
-          `http://localhost:3000/weather?cityName=${cityInput.value}`
+          `https://weather-web-render.onrender.com/weather?cityName=${cityInput.value}`
         );
         const data = await resp.json();
         console.log(data);
